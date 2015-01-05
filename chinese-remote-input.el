@@ -48,7 +48,7 @@
 (defvar remote-input-origin-buffer nil)
 (defvar remote-input-origin-point nil)
 
-(make-variable-buffer-local `remote-input-origin-point)
+(make-variable-buffer-local 'remote-input-origin-point)
 
 ;;;###autoload
 (defun remote-input-toggle ()
