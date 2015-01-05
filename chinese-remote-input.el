@@ -81,7 +81,8 @@
             (goto-char remote-input-origin-point)
             ;; 将连续两个句号替换为换行符。
             (insert (replace-regexp-in-string "。。" "\n" input))
-            (setq remote-input-origin-point (point))))
+            (setq remote-input-origin-point (point))
+            (message "Insert string to buffer: %s" (buffer-name buffer))))
       (message "Remote-Input not activate, run `remote-input-toggle'")))
   (comint-output-filter proc remote-input-terminal-prompt-regexp))
 
