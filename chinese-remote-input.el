@@ -60,10 +60,9 @@
         (cancel-timer remote-input-origin-monitor-timer)
         (setq remote-input-origin-monitor-timer nil)
         (message "Remote-Input deactivate"))
-    (progn
-      (setq remote-input-origin-monitor-timer
-            (run-with-timer 0 0.5 'remote-input-get-origin-buffer-info))
-      (message "Remote-Input activate"))))
+    (setq remote-input-origin-monitor-timer
+          (run-with-timer 0 0.5 'remote-input-get-origin-buffer-info))
+    (message "Remote-Input activate")))
 
 (defun remote-input-get-origin-buffer-info (&optional enable)
   "得到待编辑文件对应的buffer和光标位置。（通过屏幕宽度(pixel)来判断
