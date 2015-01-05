@@ -1,6 +1,6 @@
 ;;; chinese-remote-input.el --- Input Chinese with a remote input method (e.g. Android Voice Input Method)
 
-;; Copyright (c) 2011-2014, Feng Shu
+;; Copyright (c) 2015, Feng Shu
 
 ;; Author: Feng Shu <tumashu@gmail.com>
 ;; URL: https://github.com/tumashu/chinese-remote-input
