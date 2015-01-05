@@ -1,4 +1,4 @@
-;;; chinese-remote-input.el --- Input Chinese with remote input method (ex：Android Voice Input Method)
+;;; chinese-remote-input.el --- Input Chinese with a remote input method (e.g. Android Voice Input Method)
 
 ;; Copyright (c) 2011-2014, Feng Shu
 

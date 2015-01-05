@@ -1,4 +1,4 @@
-# chinese-remote-input - Input Chinese with remote input method (ex：Android Voice Input Method)
+# chinese-remote-input - Input Chinese with a remote input method (e.g. Android Voice Input Method)
 
 *Author:* Feng Shu <tumashu@gmail.com><br>
 *Version:* 0.0.1<br>
