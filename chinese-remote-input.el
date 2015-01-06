@@ -96,7 +96,8 @@
   "得到待编辑文件对应的buffer和光标位置。用变量：`remote-input-origin-buffer'
 和 `remote-input-origin-point' 保存对应值。忽略 Remote-Input-Terminal 对应
 的buffer。"
-  (unless (string= remote-input-terminal-buffer-name (buffer-name (current-buffer)))
+  (when (and (> (display-pixel-width) 50)
+             (not (string= remote-input-terminal-buffer-name (buffer-name (current-buffer)))))
     (setq remote-input-origin-buffer (current-buffer))
     (setq remote-input-origin-point (point))))
 
