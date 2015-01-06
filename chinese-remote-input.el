@@ -39,11 +39,26 @@
 
 (require 'comint)
 
-(defconst remote-input-terminal-prompt-regexp "> ")
-(defconst remote-input-terminal-buffer-name "*Remote-Input-Terminal*")
+(defgroup chinese-remote-input nil
+  "Input Chinese with a remote input method"
+  :group 'leim)
+
+(defcustom remote-input-terminal-return-key-regexp "。。\\|，，\\|！！\\|？？"
+  "Remote-Input-Terminal 提交时，将与之匹配的字符串替换为换行符。"
+  :group 'chinese-remote-input
+  :type 'regexp)
+
+(defcustom remote-input-terminal-prompt-regexp "> "
+  "Regexp to match prompts in Remote-Input-Terminal"
+  :group 'chinese-remote-input
+  :type 'string)
+
+(defcustom remote-input-terminal-buffer-name "*Remote-Input-Terminal*"
+  "Remote-Input-Terminal 对应的buffer名称。"
+  :group 'chinese-remote-input
+  :type 'string)
 
 (defvar remote-input-terminal-buffer nil)
-
 (defvar remote-input-origin-monitor-timer nil)
 (defvar remote-input-origin-buffer nil)
 (defvar remote-input-origin-point nil)
@@ -98,7 +113,9 @@
         (when remote-input-origin-point
           (goto-char remote-input-origin-point)
           ;; 将连续两个句号替换为换行符。
-          (insert (replace-regexp-in-string "。。" "\n" input))
+          (insert (replace-regexp-in-string
+                   remote-input-terminal-return-key-regexp
+                   "\n" input))
           (setq remote-input-origin-point (point))
           (message "在 buffer: %s 中插入已经输入的文本。" (buffer-name buffer)))))))
   (comint-output-filter proc remote-input-terminal-prompt-regexp))
