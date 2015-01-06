@@ -50,7 +50,8 @@
 
 (make-variable-buffer-local 'remote-input-origin-point)
 
-(defun remote-input-enable ()
+;;;###autoload
+(defun remote-input-activate ()
   "激活remote-input，通过一个timer，不断的获取(1秒1次)待编辑
 文件对应的buffer以及光标位置。"
   (interactive)
@@ -60,7 +61,8 @@
         (run-with-timer 0 0.5 'remote-input-get-origin-buffer-info))
   (message "Remote-Input activate."))
 
-(defun remote-input-disable ()
+;;;###autoload
+(defun remote-input-deactivate ()
   "禁用remote-input."
   (interactive)
   (when remote-input-origin-monitor-timer
@@ -94,7 +96,7 @@
             (insert (replace-regexp-in-string "。。" "\n" input))
             (setq remote-input-origin-point (point))
             (message "Insert string to buffer: %s" (buffer-name buffer))))
-      (message "Remote-Input not activate, run `remote-input-toggle'")))
+      (message "Remote-Input not activate, run `remote-input-activate'")))
   (comint-output-filter proc remote-input-terminal-prompt-regexp))
 
 ;;;###autoload
