@@ -77,11 +77,9 @@
 
 (defun remote-input-get-origin-buffer-info (&optional enable)
   "得到待编辑文件对应的buffer和光标位置。用变量：`remote-input-origin-buffer'
-和 `remote-input-origin-point' 保存对应值。
-
-这里通过屏幕(pixel)宽度来判断当前buffer是否是待输入的buffer，忽略宽度值较小
-emacs窗口（比如，智能手机）。"
-  (when (> (display-pixel-width) 600)
+和 `remote-input-origin-point' 保存对应值。忽略 Remote-Input-Terminal 对应
+的buffer。"
+  (unless (string= remote-input-terminal-buffer-name (buffer-name (current-buffer)))
     (setq remote-input-origin-buffer (current-buffer))
     (setq remote-input-origin-point (point))))
 
