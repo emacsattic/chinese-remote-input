@@ -88,18 +88,19 @@
 (defun remote-input-terminal--input-sender (proc input)
   (let* ((buffer remote-input-origin-buffer)
          (timer remote-input-origin-monitor-timer))
-    (if (and buffer timer)
-        (with-current-buffer buffer
-          (when remote-input-origin-point
-            (goto-char remote-input-origin-point)
-            ;; 将连续两个句号替换为换行符。
-            (insert (replace-regexp-in-string "。。" "\n" input))
-            (setq remote-input-origin-point (point))
-            (message "Insert string to buffer: %s" (buffer-name buffer))))
-      (unless timer
-        (message "Remote-Input 没有激活, 请运行命令： `remote-input-activate'"))
-      (unless buffer
-        (message "没有待输入的buffer。"))))
+    (cond
+     ((not timer)
+      (message "Remote-Input 没有激活, 请运行命令： `remote-input-activate'"))
+     ((not buffer)
+      (message "请确定待输入buffer是否打开。"))
+     (t
+      (with-current-buffer buffer
+        (when remote-input-origin-point
+          (goto-char remote-input-origin-point)
+          ;; 将连续两个句号替换为换行符。
+          (insert (replace-regexp-in-string "。。" "\n" input))
+          (setq remote-input-origin-point (point))
+          (message "在 buffer: %s 中插入已经输入的文本。" (buffer-name buffer)))))))
   (comint-output-filter proc remote-input-terminal-prompt-regexp))
 
 ;;;###autoload
