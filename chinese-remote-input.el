@@ -53,7 +53,7 @@
   :group 'chinese-remote-input
   :type 'string)
 
-(defcustom remote-input-terminal-buffer-name "*Remote-Input-Terminal*"
+(defcustom remote-input-terminal-buffer-name " *Remote-Input-Terminal*"
   "Remote-Input-Terminal 对应的buffer名称。"
   :group 'chinese-remote-input
   :type 'string)
