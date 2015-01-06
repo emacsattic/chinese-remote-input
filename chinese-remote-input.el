@@ -50,23 +50,37 @@
 
 (make-variable-buffer-local 'remote-input-origin-point)
 
+(defun remote-input-enable ()
+  "激活remote-input，通过一个timer，不断的获取(1秒1次)待编辑
+文件对应的buffer以及光标位置。"
+  (interactive)
+  (when remote-input-origin-monitor-timer
+    (cancel-timer remote-input-origin-monitor-timer))
+  (setq remote-input-origin-monitor-timer
+        (run-with-timer 0 0.5 'remote-input-get-origin-buffer-info))
+  (message "Remote-Input activate."))
+
+(defun remote-input-disable ()
+  "禁用remote-input."
+  (interactive)
+  (when remote-input-origin-monitor-timer
+    (cancel-timer remote-input-origin-monitor-timer))
+  (setq remote-input-origin-monitor-timer nil)
+  (message "Remote-Input deactivate."))
+
 ;;;###autoload
 (defun remote-input-toggle ()
-  "当remote-input激活后，通过一个timer，不断的获取(1秒1次)待编辑
-文件对应的buffer以及光标位置"
   (interactive)
   (if remote-input-origin-monitor-timer
-      (progn
-        (cancel-timer remote-input-origin-monitor-timer)
-        (setq remote-input-origin-monitor-timer nil)
-        (message "Remote-Input deactivate"))
-    (setq remote-input-origin-monitor-timer
-          (run-with-timer 0 0.5 'remote-input-get-origin-buffer-info))
-    (message "Remote-Input activate")))
+      (remote-input-disable)
+    (remote-input-enable)))
 
 (defun remote-input-get-origin-buffer-info (&optional enable)
-  "得到待编辑文件对应的buffer和光标位置。（通过屏幕宽度(pixel)来判断
-当前buffer是否是待输入的buffer）"
+  "得到待编辑文件对应的buffer和光标位置。用变量：`remote-input-origin-buffer'
+和 `remote-input-origin-point' 保存对应值。
+
+这里通过屏幕(pixel)宽度来判断当前buffer是否是待输入的buffer，忽略宽度值较小
+emacs窗口（比如，智能手机）。"
   (when (> (display-pixel-width) 600)
     (setq remote-input-origin-buffer (current-buffer))
     (setq remote-input-origin-point (point))))
