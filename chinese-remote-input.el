@@ -96,7 +96,10 @@
             (insert (replace-regexp-in-string "。。" "\n" input))
             (setq remote-input-origin-point (point))
             (message "Insert string to buffer: %s" (buffer-name buffer))))
-      (message "Remote-Input not activate, run `remote-input-activate'")))
+      (unless timer
+        (message "Remote-Input 没有激活, 请运行命令： `remote-input-activate'"))
+      (unless buffer
+        (message "没有待输入的buffer。"))))
   (comint-output-filter proc remote-input-terminal-prompt-regexp))
 
 ;;;###autoload
