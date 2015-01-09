@@ -89,8 +89,8 @@
 (defun remote-input-toggle ()
   (interactive)
   (if remote-input-origin-monitor-timer
-      (remote-input-disable)
-    (remote-input-enable)))
+      (remote-input-deactivate)
+    (remote-input-activate)))
 
 (defun remote-input-get-origin-buffer-info (&optional enable)
   "得到待编辑文件对应的buffer和光标位置。用变量：`remote-input-origin-buffer'
