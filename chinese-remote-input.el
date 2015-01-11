@@ -5,6 +5,7 @@
 ;; Author: Feng Shu <tumashu@gmail.com>
 ;; URL: https://github.com/tumashu/chinese-remote-input
 ;; Version: 0.0.1
+;; Keywords: convenience, Chinese
 
 ;; This file is not part of GNU Emacs.
 
